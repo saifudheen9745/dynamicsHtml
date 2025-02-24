@@ -8,6 +8,59 @@
     <script src="./dynamics.js"></script>
 </head>
 <body>
-    <p class="text-2xl text-red-600">Dynamics Page working</p>
+    <div class="bg-black h-screen w-full flex flex-col gap-3 items-center p-10">
+        <p class="text-3xl  font-bold text-white">Dynamics Sample Ccp</p>
+        <div class="w-full flex  p-2 gap-2 ">
+            <button id="searchInterface" class="w-1/2 cursor-ponter py-2 bg-gray-600 text-white border border-white">Search</button>
+            <button id="createContactInterface" class="w-1/2 cursor-ponter py-2 bg-gray-600 text-white border border-white">Create New Contact</button>
+        </div>
+        <div class="flex flex-col gap-5 h-full justify-center items-center">
+            <div id="searchArea" class="flex flex-col gap-3 border-4 rounded-md p-5 border-white">
+                <input type="text" id="phoneInput" class="border-4 border-white rounded-md h-14 w-62 placeholder:text-white placeholder:p-2 p-2 placeholder:text-lg text-white outline-none" placeholder="Enter a phonenumber">
+                <button onclick="searchContact()" class="bg-white px-2 py-1 rounded-md">Search Contact</button>
+            </div>
+            <div id="createContactForm" class="hidden">
+                <form id="contactForm" class="flex flex-col gap-4">
+                    <input type="text" name="firstname" class="border-2 border-white rounded-md h-10 w-62 placeholder:text-white placeholder:p-2 p-2 placeholder:text-lg text-white outline-none" placeholder="First Name">
+                
+                    <input type="text" name="lastname" class="border-2 border-white rounded-md h-10 w-62 placeholder:text-white placeholder:p-2 p-2 placeholder:text-lg text-white outline-none" placeholder="Last Name">
+                
+                    <input type="text" name="fullname" class="border-2 border-white rounded-md h-10 w-62 placeholder:text-white placeholder:p-2 p-2 placeholder:text-lg text-white outline-none" placeholder="Full Name">
+                
+                    <input type="email" name="emailaddress1" class="border-2 border-white rounded-md h-10 w-62 placeholder:text-white placeholder:p-2 p-2 placeholder:text-lg text-white outline-none" placeholder="Email Address">
+                
+                    <input type="text" name="jobtitle" class="border-2 border-white rounded-md h-10 w-62 placeholder:text-white placeholder:p-2 p-2 placeholder:text-lg text-white outline-none" placeholder="Job Title">
+                
+                    <input type="tel" name="telephone1" class="border-2 border-white rounded-md h-10 w-62 placeholder:text-white placeholder:p-2 p-2 placeholder:text-lg text-white outline-none" placeholder="Phone Number">
+                
+                    <textarea name="description" class="border-2 border-white rounded-md h-20 w-62 placeholder:text-white placeholder:p-2 p-2 placeholder:text-lg text-white outline-none" placeholder="Description"></textarea>
+                
+                    <button type="submit" class="bg-white text-black px-4 py-2 rounded-md">Submit</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    const searchArea = document.getElementById("searchArea");
+    const contactForm = document.getElementById("createContactForm");
+    document.getElementById("searchInterface").addEventListener('click', () => {
+        searchArea.style.display = "flex"
+        contactForm.style.display = "none"
+    })
+    document.getElementById("createContactInterface").addEventListener('click', () => {
+        searchArea.style.display = "none"
+        contactForm.style.display = "flex"
+    })
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent page refresh
+        const formData = Object.fromEntries(new FormData(this));
+        createContact(JSON.stringify(formData, null, 4))
+    });
+    const searchContact = () =>{
+        const value = document.getElementById("phoneInput").value
+        searchAndDisplayContact(value)
+    }
+</script>
 </html>
